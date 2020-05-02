@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "prepublishOnly": "npm run test",
     "release": "npm publish --scope=@fibre --access public"
   },
   "repository": {
