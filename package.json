@@ -1,0 +1,43 @@
+{
+  "name": "@fibre/translations",
+  "version": "1.0.0",
+  "description": "The translation files for the Git source control client, Fibre",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "release": "npm publish --scope=@fibre --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fibre-SCM/Translations.git"
+  },
+  "author": {
+    "name": "Toby Smith",
+    "email": "toby@fibre-app.com",
+    "url": "https://tobysmith.uk"
+  },
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Fibre-SCM/Translations/issues"
+  },
+  "homepage": "https://github.com/Fibre-SCM/Translations#readme",
+  "files": [
+    "translations"
+  ],
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "chai": "^4.2.0",
+    "chai-json": "^1.0.0",
+    "mocha": "^7.1.2",
+    "ts-node": "^8.9.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/jsonschema": "^1.1.1",
+    "@types/node": "^13.13.4",
+    "glob": "^7.1.6",
+    "jsonschema": "^1.2.6"
+  }
+}
