@@ -1,6 +1,6 @@
 {
   "name": "@fibre/translations",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The translation files for the Git source control client, Fibre",
   "main": "index.js",
   "scripts": {
@@ -27,18 +27,18 @@
   ],
   "devDependencies": {
     "@types/chai": "^4.2.11",
+    "@types/glob": "^7.1.1",
+    "@types/jsonschema": "^1.1.1",
     "@types/mocha": "^7.0.2",
+    "@types/node": "^13.13.4",
     "chai": "^4.2.0",
     "chai-json": "^1.0.0",
+    "glob": "^7.1.6",
+    "jsonschema": "^1.2.6",
     "mocha": "^7.1.2",
     "ts-node": "^8.9.1",
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@types/glob": "^7.1.1",
-    "@types/jsonschema": "^1.1.1",
-    "@types/node": "^13.13.4",
-    "glob": "^7.1.6",
-    "jsonschema": "^1.2.6"
   }
 }
