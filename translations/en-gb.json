@@ -1,0 +1,71 @@
+{
+	"name": "English (UK)",
+	"extends": [],
+	"values": {
+		"Repo-Sidebar-LocalBranches": "Local branches",
+		"Repo-Sidebar-Remotes": "Remotes",
+		"Repo-Sidebar-Tags": "Tags",
+
+		"OpenRepository-Header-Title": "Repositories",
+		"OpenRepository-Header-Settings": "Settings",
+		"OpenRepository-Sidebar-Clone": "Clone",
+		"OpenRepository-Sidebar-OpenNew": "Open New",
+		"OpenRepository-Sidebar-Recents": "Recents",
+		"OpenRepository-Sidebar-Favorites": "Favourites",
+		"OpenRepository-Sidebar-Scripts": "Script Repositories",
+		"OpenRepository-Sidebar-AddGroup": "Add new Group",
+		"OpenRepository-Sidebar-Groups": "Groups",
+
+		"FlatRepositories-Row-MarkAsFavorite": "Mark as favourite",
+		"FlatRepositories-Row-UnmarkAsFavorite": "Unmark as favourite",
+		"FlatRepositories-Row-MarkAsScripts": "Mark as script repository",
+		"FlatRepositories-Row-UnmarkAsScripts": "Unmark as script repository",
+		"FlatRepositories-Table-RepositoryCount": "${number} Repositories",
+		"FlatRepositories-Table-RepositorySelection": "Selected ${selected}/${outOf} repositories",
+		"FlatRepositories-Context-OpenSelected": "Open Selected (${number})",
+		"FlatRepositories-Context-Open": "Open ${name}",
+		"FlatRepositories-Context-RemoveSelected": "Remove Selected (${number})",
+		"FlatRepositories-Context-Remove": "Remove ${name}",
+
+		"Settings-Header-Title": "Settings",
+		"Settings-Sidebar-General": "General",
+		"Settings-Sidebar-Scripts": "Scripts",
+		"Settings-Sidebar-About": "About",
+
+		"SettingsScripts-RepositoryBar-Title": "Repository Bar",
+		"SettingsScripts-Scripts-Title": "Available Scripts",
+
+		"SettingsCredits-Title": "Credits",
+
+		"SettingsAbout-DevelopedBy": "Developed by",
+		"SettingsAbout-Sourcecode": "Source code available here:",
+		"SettingsAbout-ProtectedBy": "This software is protected by the GNU GPLv3 licence:",
+
+		"repository.ts-BranchUnavailable-Title": "Branch Unavailable",
+		"repository.ts-BranchUnavailable-Message": "Could not find the changeset for the branch: ${branchName}",
+		"repository.ts-UnknownBranch-Title": "Unknown Branch",
+		"repository.ts-UnknownBranch-Message": "Could not process one of the found branches",
+		"repository.ts-UnknownTag-Title": "Unknown Tag",
+		"repository.ts-UnknownTag-Message": "Could not process one of the found tags",
+		"repository.ts-Commit-Title": "Commited!",
+		"repository.ts-Commit-Message": "Successfully commited ${repoName}",
+		"repository.ts-CommitFailed-Title": "Error commiting",
+		"repository.ts-CommitFailed-Message": "An error occurred while commiting. See log files for details",
+		"repository.ts-Push-Title": "Pushed!",
+		"repository.ts-Push-Message": "Successfully pushed ${repoName}",
+		"repository.ts-Pull-Title": "Pulled!",
+		"repository.ts-Pull-Message": "Successfully pulled ${repoName}",
+
+		"NewGroup-Title": "Add a new repository group",
+		"NewGroup-Name": "Name",
+		"NewGroup-Location": "Location",
+		"NewGroup-EnterAName": "You need to enter a name for the group",
+		"NewGroup-EnterALocation": "You need to enter a location for the group",
+		"NewGroup-NotValidLocation": "The given location is not a valid folder path",
+
+		"ScriptAPI-UnableToFindRepository-Title": "Repository Error",
+		"ScriptAPI-UnableToFindRepository-Message": "Unable to create or find the repository: ${repositoryName}",
+		"ScriptAPI-UnableToFindScript-Title": "Script Error",
+		"ScriptAPI-UnableToFindScript-Message": "Unable to find the script: ${label}"
+	}
+}

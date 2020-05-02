@@ -1,0 +1,12 @@
+{
+	"name": "English (US)",
+	"extends": [
+		"en-gb"
+	],
+	"values": {
+		"OpenRepository-Sidebar-Favorites": "Favorites",
+
+		"FlatRepositories-Row-MarkAsFavorite": "Mark as favorite",
+		"FlatRepositories-Row-UnmarkAsFavorite": "Unmark as favorite"
+	}
+}
