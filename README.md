@@ -9,6 +9,8 @@ Feel free to add or edit translations in existing files.
 
 If you wish, you can add new files for different languages or dialects. File names should be [language tags](https://en.wikipedia.org/wiki/Language_localisation#Language_tags_and_codes). They do not need to be official values, but they should make sense.
 
+Language files do not need to be complete, but all should extend at least one other file - [en-gb.json](./translations/en-gb.json) is the base.
+
 Updates to this repository will be integrated into Fibre in the very next update: major, minor, or patch.
 
 ## Tests
