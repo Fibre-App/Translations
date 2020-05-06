@@ -34,6 +34,7 @@
 
 		"SettingsScripts-RepositoryBar-Title": "Repository Bar",
 		"SettingsScripts-Scripts-Title": "Available Scripts",
+		"SettingsScripts-Context-Remove": "Remove ${name}",
 
 		"SettingsCredits-Title": "Credits",
 
@@ -56,6 +57,8 @@
 		"NewGroup-EnterAName": "You need to enter a name for the group",
 		"NewGroup-EnterALocation": "You need to enter a location for the group",
 		"NewGroup-NotValidLocation": "The given location is not a valid folder path",
+		"NewGroup-OK": "OK",
+		"NewGroup-Cancel": "Cancel",
 
 		"ScriptAPI-UnableToFindRepository-Title": "Repository Error",
 		"ScriptAPI-UnableToFindRepository-Message": "Unable to create or find the repository: ${repositoryName}",
