@@ -5,6 +5,8 @@
 		"Repo-Sidebar-LocalBranches": "Local branches",
 		"Repo-Sidebar-Remotes": "Remotes",
 		"Repo-Sidebar-Tags": "Tags",
+		"Repo-Files-Files": "Files",
+		"Repo-Files-FileCount": "${count} Files",
 
 		"OpenRepository-Header-Title": "Repositories",
 		"OpenRepository-Header-Settings": "Settings",
@@ -15,6 +17,7 @@
 		"OpenRepository-Sidebar-Scripts": "Script Repositories",
 		"OpenRepository-Sidebar-AddGroup": "Add new Group",
 		"OpenRepository-Sidebar-Groups": "Groups",
+		"OpenRepository-Sidebar-Settings": "Settings",
 
 		"FlatRepositories-Row-MarkAsFavorite": "Mark as favourite",
 		"FlatRepositories-Row-UnmarkAsFavorite": "Unmark as favourite",
