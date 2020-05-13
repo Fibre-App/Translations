@@ -19,6 +19,10 @@
 		"OpenRepository-Sidebar-Groups": "Groups",
 		"OpenRepository-Sidebar-Settings": "Settings",
 
+		"CloningRepository-Spinner": "Cloning...",
+		"CloningRepository-Message": "Cloning Repository",
+		"CloningRepository-ErrorTitle": "There was an error while cloning:",
+
 		"FlatRepositories-Row-MarkAsFavorite": "Mark as favourite",
 		"FlatRepositories-Row-UnmarkAsFavorite": "Unmark as favourite",
 		"FlatRepositories-Row-MarkAsScripts": "Mark as script repository",
@@ -62,6 +66,15 @@
 		"NewGroup-NotValidLocation": "The given location is not a valid folder path",
 		"NewGroup-OK": "OK",
 		"NewGroup-Cancel": "Cancel",
+
+		"CloneNew-Title": "Clone and open a repository locally",
+		"CloneNew-Location": "Local folder to clone to",
+		"CloneNew-LocalLocation": "Location of .git file from remote",
+		"CloneNew-EnterALocation": "You need to enter a location for the .git file in the remote",
+		"CloneNew-EnterALocalocation": "You need to enter a local folder location to clone the repository to",
+		"CloneNew-NotValidLocation": "The given local location already exists",
+		"CloneNew-OK": "OK",
+		"CloneNew-Cancel": "Cancel",
 
 		"ScriptAPI-UnableToFindRepository-Title": "Repository Error",
 		"ScriptAPI-UnableToFindRepository-Message": "Unable to create or find the repository: ${repositoryName}",
