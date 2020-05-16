@@ -1,10 +1,9 @@
 import glob from "glob";
-import chai, { expect, assert } from "chai";
+import { assert } from "chai";
 import { promisify } from "util";
 import { validate, ValidatorResult } from "jsonschema";
 import { join } from "path";
 import { readFile } from "fs";
-import { fail } from "assert";
 
 const globAsync: (pattern: string, options?: glob.IOptions) => Promise<string[]> = promisify(glob);
 export const readFileAsync: (path: string, options: { encoding: string; flag?: string; }) => Promise<string> = promisify(readFile);
@@ -25,7 +24,7 @@ describe("The translation files", async () => {
       try {
         instance = JSON.parse(value);
       } catch {
-        fail(key + " Is not valid json");
+        assert.fail(key + " Is not valid json");
       }
 
       const result: ValidatorResult = validate(instance, schema);
