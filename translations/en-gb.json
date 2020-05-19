@@ -39,6 +39,17 @@
 		"Settings-Sidebar-Scripts": "Scripts",
 		"Settings-Sidebar-About": "About",
 
+		"SettingsGeneral-ThemeHeader": "Theme",
+		"SettingsGeneral-ToastLocationHeader": "Toast Location",
+		"toast-top-right": "Top Right",
+		"toast-top-left": "Top Left",
+		"toast-bottom-right": "Bottom Right",
+		"toast-bottom-left": "Bottom Left",
+		"SettingsGeneral-LanguageHeader": "Language",
+		"SettingsGeneral-ScriptWarningHeader": "External Script Warning",
+		"SettingsGeneral-DontShow": "Don't warn me about external scripts",
+		"SettingsGeneral-DontShowExplanation": "It's important that you fully understand what a script does before you enable it",
+
 		"SettingsScripts-RepositoryBar-Title": "Repository Bar",
 		"SettingsScripts-Scripts-Title": "Available Scripts",
 		"SettingsScripts-Context-Remove": "Remove ${name}",
@@ -75,6 +86,13 @@
 		"CloneNew-NotValidLocation": "The given local location already exists",
 		"CloneNew-OK": "OK",
 		"CloneNew-Cancel": "Cancel",
+
+		"ScriptWarning-Title": "Beware of external scripts!",
+		"ScriptWarning-Message1": "Only use scripts which either you wrote, or you have examined to the point where you understand their functionality fully.",
+		"ScriptWarning-Message2": "Scripts have full access to your machine and have the potential to be malicious or cause serious harm if used improperly.",
+		"ScriptWarning-DontShow": "Don't show me again",
+		"ScriptWarning-DontShowReEnable": "It can always be re-enabled in the app settings",
+		"ScriptWarning-OK": "OK",
 
 		"ScriptAPI-UnableToFindRepository-Title": "Repository Error",
 		"ScriptAPI-UnableToFindRepository-Message": "Unable to create or find the repository: ${repositoryName}",
