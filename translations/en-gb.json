@@ -79,9 +79,9 @@
 		"NewGroup-Cancel": "Cancel",
 
 		"CloneNew-Title": "Clone and open a repository locally",
-		"CloneNew-Location": "Local folder to clone to",
-		"CloneNew-LocalLocation": "Location of .git file from remote",
-		"CloneNew-EnterALocation": "You need to enter a location for the .git file in the remote",
+		"CloneNew-Location": "Remote location to clone from",
+		"CloneNew-LocalLocation": "Local folder to clone to",
+		"CloneNew-EnterALocation": "You need to enter a remote location to clone from",
 		"CloneNew-EnterALocalocation": "You need to enter a local folder location to clone the repository to",
 		"CloneNew-NotValidLocation": "The given local location already exists",
 		"CloneNew-OK": "OK",
