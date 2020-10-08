@@ -23,12 +23,14 @@
   "bugs": {
     "url": "https://github.com/Fibre-SCM/Translations/issues"
   },
+  "prettier": "@tobysmith568/prettier-config",
   "homepage": "https://github.com/Fibre-SCM/Translations#readme",
   "files": [
     "translations",
     "dist/src"
   ],
   "devDependencies": {
+    "@tobysmith568/prettier-config": "^1.0.0",
     "@types/chai": "^4.2.11",
     "@types/glob": "^7.1.1",
     "@types/jsonschema": "^1.1.1",

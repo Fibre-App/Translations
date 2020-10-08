@@ -1,6 +1,6 @@
 {
   "$id": "https://fibre-app.com/translation.schema.json",
-	"$schema": "http://json-schema.org/draft/2019-09/schema#",
+  "$schema": "http://json-schema.org/draft/2019-09/schema#",
   "title": "Person",
   "type": "object",
   "properties": {
@@ -9,8 +9,8 @@
       "description": "The name of the language"
     },
     "extends": {
-			"type": "array",
-			"description": "The language tags for the languages this one should extend. They should be in this format: https://en.wikipedia.org/wiki/Language_localisation#Language_tags_and_codes",
+      "type": "array",
+      "description": "The language tags for the languages this one should extend. They should be in this format: https://en.wikipedia.org/wiki/Language_localisation#Language_tags_and_codes",
       "items": {
         "type": "string"
       }
@@ -20,9 +20,5 @@
       "type": "object"
     }
   },
-  "required": [
-    "name",
-    "extends",
-    "values"
-  ]
+  "required": ["name", "extends", "values"]
 }

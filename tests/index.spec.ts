@@ -6,10 +6,11 @@ import { join } from "path";
 import { readFile } from "fs";
 
 const globAsync: (pattern: string, options?: glob.IOptions) => Promise<string[]> = promisify(glob);
-export const readFileAsync: (path: string, options: { encoding: string; flag?: string; }) => Promise<string> = promisify(readFile);
+export const readFileAsync: (path: string, options: { encoding: string; flag?: string }) => Promise<string> = promisify(
+  readFile
+);
 
 describe("The translation files", async () => {
-
   let jsonFiles: Map<string, string>;
   let schema: any;
 
@@ -17,8 +18,7 @@ describe("The translation files", async () => {
     await given_jsonFiles_isLoadedIn();
     await given_schema_isLoadedIn();
 
-    for (const [ key, value ] of jsonFiles) {
-
+    for (const [key, value] of jsonFiles) {
       let instance: any;
 
       try {
@@ -36,7 +36,7 @@ describe("The translation files", async () => {
   async function given_jsonFiles_isLoadedIn(): Promise<void> {
     jsonFiles = new Map<string, string>();
 
-    const fileNames: string[] = await globAsync("./translations/**/*.json", { });
+    const fileNames: string[] = await globAsync("./translations/**/*.json", {});
 
     for (const fileName of fileNames) {
       jsonFiles.set(fileName, await readFileAsync(fileName, { encoding: "utf-8" }));
