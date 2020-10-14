@@ -56,10 +56,6 @@
 
     "SettingsCredits-Title": "Credits",
 
-    "SettingsAbout-DevelopedBy": "Developed by",
-    "SettingsAbout-Sourcecode": "Source code available here:",
-    "SettingsAbout-ProtectedBy": "This software is protected by the GNU GPLv3 licence:",
-
     "repository.ts-BranchUnavailable-Title": "Branch Unavailable",
     "repository.ts-BranchUnavailable-Message": "Could not find the changeset for the branch: ${branchName}",
     "repository.ts-UnknownBranch-Title": "Unknown Branch",
