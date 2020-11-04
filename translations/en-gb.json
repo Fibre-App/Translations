@@ -7,6 +7,8 @@
     "Repo-Sidebar-Tags": "Tags",
     "Repo-Files-Files": "Files",
     "Repo-Files-FileCount": "${count} Files",
+    "Repo-UnableToCheckOutLocalBranch-Title": "Error",
+    "Repo-UnableToCheckOutLocalBranch-Message": "Unable to checkout the branch: ${branch}",
 
     "OpenRepository-Header-Title": "Repositories",
     "OpenRepository-Header-Settings": "Settings",
