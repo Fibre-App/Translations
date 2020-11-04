@@ -2,7 +2,7 @@
   "name": "@fibre/translations",
   "version": "1.0.10",
   "description": "The translation files for the Git source control client, Fibre",
-  "main": "dist/src/index.js",
+  "main": "dist/src/translation-utils.js",
   "scripts": {
     "build": "./node_modules/.bin/rimraf dist&&tsc",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
