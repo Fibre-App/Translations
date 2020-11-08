@@ -32,8 +32,8 @@ export class TranslationUtils {
     return this.readFileAsync(filePath);
   }
 
-  private readdirAsync(folder: string): Promise<FS.Dirent[]> {
-    return new Promise((resolve, reject) => {
+  private readdirAsync(folder: string): Promise<FS.Dirent[] | string[]> {
+    return new Promise<FS.Dirent[] | string[]>((resolve, reject) => {
       this.fs.readdir(folder, { withFileTypes: true }, (err, files) => {
         if (!!err) {
           reject(err);
