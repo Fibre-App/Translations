@@ -1,5 +1,4 @@
 import glob from "glob";
-import { assert } from "chai";
 import { promisify } from "util";
 import { validate, ValidatorResult } from "jsonschema";
 import { join } from "path";
@@ -10,9 +9,14 @@ export const readFileAsync: (path: string, options: { encoding: string; flag?: s
   readFile
 );
 
-describe("The translation files", async () => {
+describe("The translation files", () => {
   let jsonFiles: Map<string, string>;
   let schema: any;
+
+  beforeEach(() => {
+    jsonFiles = undefined as any;
+    schema = undefined;
+  });
 
   it("Are valid json", async () => {
     await given_jsonFiles_isLoadedIn();
@@ -24,12 +28,12 @@ describe("The translation files", async () => {
       try {
         instance = JSON.parse(value);
       } catch {
-        assert.fail(key + " Is not valid json");
+        fail(key + " Is not valid json");
       }
 
       const result: ValidatorResult = validate(instance, schema);
 
-      assert.isTrue(result.valid, key + " Is not valid against the given schema");
+      expect(result.valid).toBe(true);
     }
   });
 

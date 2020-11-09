@@ -5,10 +5,11 @@
   "main": "dist/src/translation-utils.js",
   "scripts": {
     "build": "./node_modules/.bin/rimraf dist&&tsc",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
-    "coverage": "nyc --reporter=html --reporter=cobertura mocha -r ts-node/register 'tests/**/*.spec.ts'",
+    "test": "jest",
+    "coverage": "jest --coverage",
     "prepublishOnly": "npm run build&&npm run test",
-    "release": "npm publish --scope=@fibre --access public"
+    "release": "npm publish --scope=@fibre --access public",
+    "nvm": "nvm use 14.14.0"
   },
   "repository": {
     "type": "git",
@@ -31,22 +32,19 @@
   ],
   "devDependencies": {
     "@tobysmith568/prettier-config": "^1.0.0",
-    "@types/chai": "^4.2.11",
     "@types/glob": "^7.1.1",
+    "@types/jest": "^26.0.15",
     "@types/jsonschema": "^1.1.1",
-    "@types/mocha": "^7.0.2",
     "@types/node": "^13.13.4",
-    "chai": "^4.2.0",
-    "chai-json": "^1.0.0",
     "glob": "^7.1.6",
+    "jest": "^26.6.3",
     "jsonschema": "^1.2.6",
-    "mocha": "^7.1.2",
-    "nyc": "^15.0.1",
+    "ts-jest": "^26.4.4",
     "ts-node": "^8.9.1",
     "tsc": "^1.20150623.0",
     "tslint": "^6.1.3",
     "typemoq": "^2.1.0",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.5"
   },
   "dependencies": {
     "rimraf": "^3.0.2"

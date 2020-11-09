@@ -5,7 +5,7 @@ export class TranslationUtils {
   private readonly translationsFolder: string;
 
   constructor(private readonly fs: typeof FS, private readonly path: typeof Path) {
-    this.translationsFolder = path.join(__dirname, "../../translations");
+    this.translationsFolder = path.join(__dirname, "../translations");
   }
 
   public async getTranslationFilePaths(): Promise<string[]> {
@@ -45,10 +45,10 @@ export class TranslationUtils {
   }
 
   private doesFileExist(location: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _) => {
       this.fs.stat(location, (err, stats) => {
         if (!!err) {
-          reject(err);
+          resolve(false);
           return;
         }
         resolve(stats.isFile());
