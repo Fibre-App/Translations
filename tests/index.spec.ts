@@ -1,18 +1,24 @@
 import glob from "glob";
-import { assert } from "chai";
 import { promisify } from "util";
 import { validate, ValidatorResult } from "jsonschema";
 import { join } from "path";
 import { readFile } from "fs";
 
 const globAsync: (pattern: string, options?: glob.IOptions) => Promise<string[]> = promisify(glob);
-export const readFileAsync: (path: string, options: { encoding: string; flag?: string }) => Promise<string> = promisify(
-  readFile
-);
+const readFileAsync: (file: string) => Promise<string> = (file: string) => {
+  return new Promise<string>((resolve, _) =>
+    readFile(file, { encoding: "utf8" }, (err, data) => (err ? fail() : resolve(data)))
+  );
+};
 
-describe("The translation files", async () => {
+describe("The translation files", () => {
   let jsonFiles: Map<string, string>;
   let schema: any;
+
+  beforeEach(() => {
+    jsonFiles = undefined as any;
+    schema = undefined;
+  });
 
   it("Are valid json", async () => {
     await given_jsonFiles_isLoadedIn();
@@ -24,12 +30,12 @@ describe("The translation files", async () => {
       try {
         instance = JSON.parse(value);
       } catch {
-        assert.fail(key + " Is not valid json");
+        fail(key + " Is not valid json");
       }
 
       const result: ValidatorResult = validate(instance, schema);
 
-      assert.isTrue(result.valid, key + " Is not valid against the given schema");
+      expect(result.valid).toBe(true);
     }
   });
 
@@ -39,12 +45,12 @@ describe("The translation files", async () => {
     const fileNames: string[] = await globAsync("./translations/**/*.json", {});
 
     for (const fileName of fileNames) {
-      jsonFiles.set(fileName, await readFileAsync(fileName, { encoding: "utf-8" }));
+      jsonFiles.set(fileName, (await readFileAsync(fileName)).toString());
     }
   }
 
   async function given_schema_isLoadedIn(): Promise<void> {
     const path: string = join(__dirname, "../translation-schema.json");
-    schema = JSON.parse(await readFileAsync(path, { encoding: "utf-8" }));
+    schema = JSON.parse((await readFileAsync(path)).toString());
   }
 });

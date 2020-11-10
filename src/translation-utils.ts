@@ -1,29 +1,15 @@
-import * as fs from "fs";
-import path from "path";
-
-export const translationsFolder: string = path.join(__dirname, "../../translations");
-
-export type readdirAsyncType = (
-  path: fs.PathLike,
-  options: { encoding?: string; withFileTypes: true }
-) => Promise<fs.Dirent[] | string[]>;
-export type statAsyncType = (path: fs.PathLike) => Promise<fs.Stats>;
-export type readFileAsyncType = (path: string, options: { encoding: string; flag?: string }) => Promise<string>;
-export type joinType = (...paths: string[]) => string;
+import * as FS from "fs";
+import * as Path from "path";
 
 export class TranslationUtils {
-  constructor(
-    private readonly _translationsFolder: string,
-    private readonly _readdirAsync: readdirAsyncType,
-    private readonly _statAsync: statAsyncType,
-    private readonly _readFileAsync: readFileAsyncType,
-    private readonly _join: joinType
-  ) {}
+  private readonly translationsFolder: string;
+
+  constructor(private readonly fs: typeof FS, private readonly path: typeof Path) {
+    this.translationsFolder = path.join(__dirname, "../translations");
+  }
 
   public async getTranslationFilePaths(): Promise<string[]> {
-    const allFiles: fs.Dirent[] | string[] = await this._readdirAsync(this._translationsFolder, {
-      withFileTypes: true
-    });
+    const allFiles: FS.Dirent[] | string[] = await this.readdirAsync(this.translationsFolder);
 
     if (!allFiles || allFiles.length === 0) {
       return [];
@@ -37,25 +23,52 @@ export class TranslationUtils {
   }
 
   public async getTranslationFile(name: string): Promise<string | undefined> {
-    const filePath: string = this._join(this._translationsFolder, name);
+    const filePath: string = this.path.join(this.translationsFolder, name);
 
     if (!(await this.doesFileExist(filePath))) {
       return undefined;
     }
 
-    return this._readFileAsync(filePath, { encoding: "UTF-8" });
+    return this.readFileAsync(filePath);
   }
 
-  private async doesFileExist(location: string): Promise<boolean> {
-    try {
-      const stats: fs.Stats = await this._statAsync(location);
-      return stats.isFile();
-    } catch {
-      return false;
-    }
+  private readdirAsync(folder: string): Promise<FS.Dirent[] | string[]> {
+    return new Promise<FS.Dirent[] | string[]>((resolve, reject) => {
+      this.fs.readdir(folder, { withFileTypes: true }, (err, files) => {
+        if (!!err) {
+          reject(err);
+          return;
+        }
+        resolve(files);
+      });
+    });
   }
 
-  private isDirentArray(result: fs.Dirent[] | string[]): result is fs.Dirent[] {
-    return (result[0] as fs.Dirent).name !== undefined;
+  private doesFileExist(location: string): Promise<boolean> {
+    return new Promise((resolve, _) => {
+      this.fs.stat(location, (err, stats) => {
+        if (!!err) {
+          resolve(false);
+          return;
+        }
+        resolve(stats.isFile());
+      });
+    });
+  }
+
+  private readFileAsync(location: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.fs.readFile(location, { encoding: "utf8" }, (err, data) => {
+        if (!!err) {
+          reject(err);
+          return;
+        }
+        resolve(data);
+      });
+    });
+  }
+
+  private isDirentArray(result: FS.Dirent[] | string[]): result is FS.Dirent[] {
+    return (result[0] as FS.Dirent).name !== undefined;
   }
 }

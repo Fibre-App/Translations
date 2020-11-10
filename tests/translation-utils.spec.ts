@@ -1,259 +1,237 @@
-import { IMock, Mock, It, Times } from "typemoq";
-import {
-  TranslationUtils,
-  readdirAsyncType,
-  statAsyncType,
-  readFileAsyncType,
-  joinType
-} from "../src/translation-utils";
-import * as fs from "fs";
-import { assert } from "chai";
+// tslint:disable no-null-keyword
+import { mocked } from "ts-jest/utils";
+import { MockedObject } from "ts-jest/dist/utils/testing";
+import { TranslationUtils } from "../src/translation-utils";
+import * as FS from "fs";
+import * as Path from "path";
+
+jest.mock("fs");
+jest.mock("path");
+
+const mockedPath: MockedObject<typeof Path> = mocked(Path);
+const mockedFS: MockedObject<typeof FS> = mocked(FS);
+
+type ReadDirOptions = { encoding?: string | null; withFileTypes: true };
 
 describe("TranslationUtils", () => {
   let subject: TranslationUtils;
 
-  let translationsFolder: string;
-  let readdirAsync: IMock<readdirAsyncType>;
-  let statAsync: IMock<statAsyncType>;
-  let readFileAsync: IMock<readFileAsyncType>;
-  let join: IMock<joinType>;
-
   beforeEach(() => {
-    subject = (undefined as unknown) as TranslationUtils;
+    jest.resetAllMocks();
+  });
 
-    translationsFolder = (undefined as unknown) as string;
-    readdirAsync = Mock.ofType<readdirAsyncType>();
-    statAsync = Mock.ofType<statAsyncType>();
-    readFileAsync = Mock.ofType<readFileAsyncType>();
-    join = Mock.ofType<joinType>();
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+
+  describe("constructor", () => {
+    it("should set the translations folder to the current dir + ../../translations", async () => {
+      const translationFolder: string = "./the/translations/folder";
+      mockedPath.join.mockReset();
+
+      mockedPath.join.mockReturnValue(translationFolder);
+
+      subject = new TranslationUtils(FS, Path);
+
+      expect(mockedPath.join).toHaveBeenCalledTimes(1);
+      expect(mockedPath.join).toHaveBeenCalledWith(expect.anything(), "../translations");
+    });
   });
 
   describe("getTranslationFilePaths", () => {
-    it("should read the given translations folder", async () => {
-      const translationFolder: string = "This is the translations folder";
+    const translationFolder: string = "./the/translations/folder";
 
-      given_translationsFolder_equals(translationFolder);
-      given_readdirAsync_returnsWhenGivenPath([], translationFolder);
-      given_subject_isInstantiated();
+    beforeEach(() => {
+      mockedPath.join.mockReturnValue(translationFolder);
+      subject = new TranslationUtils(FS, Path);
+    });
+
+    it("should read in all the files from the translations folder", async () => {
+      mocked(FS.readdir).mockImplementation((_, __, callback) => callback(null, []));
+
+      subject = new TranslationUtils(FS, Path);
+      await subject.getTranslationFilePaths();
+
+      expect(mockedFS.readdir).toHaveBeenCalledTimes(1);
+      expect(mockedFS.readdir).toHaveBeenCalledWith(translationFolder, expect.anything(), expect.anything());
+    });
+
+    it("should read in all the files from the translations folder with file types", async () => {
+      mocked(FS.readdir).mockImplementation((_, __, callback) => callback(null, []));
 
       await subject.getTranslationFilePaths();
 
-      readdirAsync.verify(r => r(translationFolder, It.isAny()), Times.once());
+      expect(mockedFS.readdir).toHaveBeenCalledTimes(1);
+      expect(mockedFS.readdir).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining<ReadDirOptions>({
+          withFileTypes: true
+        }),
+        expect.anything()
+      );
     });
 
-    it("should return an empty array if the translation folder reading returns undefined", async () => {
-      const translationFolder: string = "This is the translations folder";
-
-      given_translationsFolder_equals(translationFolder);
-      given_readdirAsync_returnsWhenGivenPath((undefined as unknown) as string[], translationFolder);
-      given_subject_isInstantiated();
+    it("should return an empty array if fs reads in the files as undefined", async () => {
+      mocked(FS.readdir).mockImplementation((_, __, callback) => callback(null, undefined as any));
 
       const result: string[] = await subject.getTranslationFilePaths();
 
-      assert.equal(result.length, 0);
+      expect(result).toEqual([]);
     });
 
-    it("should return an empty array if the translation folder reading returns an empty array", async () => {
-      const translationFolder: string = "This is the translations folder";
-
-      given_translationsFolder_equals(translationFolder);
-      given_readdirAsync_returnsWhenGivenPath([], translationFolder);
-      given_subject_isInstantiated();
+    it("should return an empty array if fs reads in the files as null", async () => {
+      mocked(FS.readdir).mockImplementation((_, __, callback) => callback(null, null as any));
 
       const result: string[] = await subject.getTranslationFilePaths();
 
-      assert.equal(result.length, 0);
+      expect(result).toEqual([]);
     });
 
-    it("should return an array equal in length to the translation folder readings if they are Dirents", async () => {
-      const translationFolder: string = "This is the translations folder";
-      const name1: string = "This is a name";
-      const name2: string = "This is also a name";
-
-      given_translationsFolder_equals(translationFolder);
-      given_readdirAsync_returnsWhenGivenPath([{ name: name1 }, { name: name2 }] as fs.Dirent[], translationFolder);
-      given_subject_isInstantiated();
+    it("should return an empty array if fs reads in the files as an empty array", async () => {
+      mocked(FS.readdir).mockImplementation((_, __, callback) => callback(null, []));
 
       const result: string[] = await subject.getTranslationFilePaths();
 
-      assert.equal(result.length, 2);
+      expect(result).toEqual([]);
     });
 
-    it("should return the names of the translation folder readings if they are Dirents", async () => {
-      const translationFolder: string = "This is the translations folder";
-      const name1: string = "This is a name";
-      const name2: string = "This is also a name";
+    it("should return the fs readdir result if it is a string array", async () => {
+      const fileNames: string[] = ["file #1", "file #2"];
 
-      given_translationsFolder_equals(translationFolder);
-      given_readdirAsync_returnsWhenGivenPath([{ name: name1 }, { name: name2 }] as fs.Dirent[], translationFolder);
-      given_subject_isInstantiated();
+      mocked(FS.readdir).mockImplementation((_, __, callback) => callback(null, fileNames as any));
 
       const result: string[] = await subject.getTranslationFilePaths();
 
-      assert.equal(result[0], name1);
-      assert.equal(result[1], name2);
+      expect(result).toEqual(fileNames);
     });
 
-    it("should return an array equal in length to the translation folder readings if they are strings", async () => {
-      const translationFolder: string = "This is the translations folder";
-      const name1: string = "This is a name";
-      const name2: string = "This is also a name";
+    it("should return only the file names from the fs readdir result if it is a Dirent array", async () => {
+      const fileNames: FS.Dirent[] = [{ name: "file #1" }, { name: "file #2" }] as FS.Dirent[];
 
-      given_translationsFolder_equals(translationFolder);
-      given_readdirAsync_returnsWhenGivenPath([name1, name2], translationFolder);
-      given_subject_isInstantiated();
+      mocked(FS.readdir).mockImplementation((_, __, callback) => callback(null, fileNames));
 
       const result: string[] = await subject.getTranslationFilePaths();
 
-      assert.equal(result.length, 2);
-    });
-
-    it("should return the names of the translation folder readings if they are strings", async () => {
-      const translationFolder: string = "This is the translations folder";
-      const name1: string = "This is a name";
-      const name2: string = "This is also a name";
-
-      given_translationsFolder_equals(translationFolder);
-      given_readdirAsync_returnsWhenGivenPath([name1, name2], translationFolder);
-      given_subject_isInstantiated();
-
-      const result: string[] = await subject.getTranslationFilePaths();
-
-      assert.equal(result[0], name1);
-      assert.equal(result[1], name2);
+      expect(result).toEqual(["file #1", "file #2"]);
     });
   });
 
   describe("getTranslationFile", () => {
-    it("should join the translation folder and the given file name", async () => {
-      const translationFolder: string = "This is the translations folder";
-      const fileName: string = "This is the file name";
-      const filePath: string = "This is the full file path";
+    const translationFolder: string = "./the/translations/folder";
 
-      given_translationsFolder_equals(translationFolder);
-      given_join_returns_WhenGiven(filePath, [translationFolder, fileName]);
-      given_readFileAsync_returnsWhenGivenPath("anything", filePath);
-
-      given_subject_isInstantiated();
-
-      await subject.getTranslationFile(fileName);
-
-      join.verify(j => j(translationFolder, fileName), Times.once());
+    beforeEach(() => {
+      mockedPath.join.mockReturnValue(translationFolder);
+      subject = new TranslationUtils(FS, Path);
     });
 
-    it("should return undefined if the given file does not exist", async () => {
-      const translationFolder: string = "This is the translations folder";
-      const fileName: string = "This is the file name";
-      const filePath: string = "This is the full file path";
+    it("should check to see if the file exists", async () => {
+      const fullFilePath: string = "full/file/path";
+      const fileStats: FS.Stats = {
+        isFile: () => false
+      } as FS.Stats;
 
-      given_translationsFolder_equals(translationFolder);
-      given_join_returns_WhenGiven(filePath, [translationFolder, fileName]);
-      given_statAsync_returnsWhenGiven((undefined as unknown) as fs.Stats, filePath);
-      given_readFileAsync_returnsWhenGivenPath("anything", filePath);
+      mockedPath.join.mockReturnValue(fullFilePath);
+      mockedFS.stat.mockImplementation((_, callback) => callback(null, fileStats));
 
-      given_subject_isInstantiated();
+      await subject.getTranslationFile("path");
 
-      const result: string | undefined = await subject.getTranslationFile(fileName);
-
-      assert.isUndefined(result);
+      expect(mockedFS.stat).toBeCalledTimes(1);
+      expect(mockedFS.stat).toHaveBeenCalledWith(fullFilePath, expect.anything());
     });
 
-    it("should return undefined if the given file exists but is actually not a file", async () => {
-      const translationFolder: string = "This is the translations folder";
-      const fileName: string = "This is the file name";
-      const filePath: string = "This is the full file path";
+    it("should return undefined if the file does not exist", async () => {
+      const fullFilePath: string = "full/file/path";
 
-      given_translationsFolder_equals(translationFolder);
-      given_join_returns_WhenGiven(filePath, [translationFolder, fileName]);
-      given_statAsync_returnsWhenGiven(
-        {
-          isFile: () => false
-        } as fs.Stats,
-        filePath
+      mockedPath.join.mockReturnValue(fullFilePath);
+      mockedFS.stat.mockImplementation((_, callback) =>
+        callback({ name: "name", message: "message" }, undefined as any)
       );
-      given_readFileAsync_returnsWhenGivenPath("anything", filePath);
 
-      given_subject_isInstantiated();
+      const result: string | undefined = await subject.getTranslationFile("path");
 
-      const result: string | undefined = await subject.getTranslationFile(fileName);
-
-      assert.isUndefined(result);
+      expect(result).toBeUndefined();
     });
 
-    it("should return content if it does exist", async () => {
-      const translationFolder: string = "This is the translations folder";
-      const fileName: string = "This is the file name";
-      const filePath: string = "This is the full file path";
-      const fileConent: string = "This is the content of the file";
+    it("should return undefined if the file is not a file", async () => {
+      const fullFilePath: string = "full/file/path";
+      const fileStats: FS.Stats = {
+        isFile: () => false
+      } as FS.Stats;
 
-      given_translationsFolder_equals(translationFolder);
-      given_join_returns_WhenGiven(filePath, [translationFolder, fileName]);
-      given_statAsync_returnsWhenGiven(
-        {
-          isFile: () => true
-        } as fs.Stats,
-        filePath
-      );
-      given_readFileAsync_returnsWhenGivenPath(fileConent, filePath);
+      mockedPath.join.mockReturnValue(fullFilePath);
+      mockedFS.stat.mockImplementation((_, callback) => callback(null, fileStats));
 
-      given_subject_isInstantiated();
+      const result: string | undefined = await subject.getTranslationFile("path");
 
-      const result: string | undefined = await subject.getTranslationFile(fileName);
-
-      assert.isDefined(result);
+      expect(result).toBeUndefined();
     });
 
-    it("should return the content of the file if it does exist", async () => {
-      const translationFolder: string = "This is the translations folder";
-      const fileName: string = "This is the file name";
-      const filePath: string = "This is the full file path";
-      const fileConent: string = "This is the content of the file";
+    it("should read the file if the file exists", async () => {
+      const fullFilePath: string = "full/file/path";
+      const fileStats: FS.Stats = {
+        isFile: () => true
+      } as FS.Stats;
+      const fileContent: string = "This is the content of the file";
 
-      given_translationsFolder_equals(translationFolder);
-      given_join_returns_WhenGiven(filePath, [translationFolder, fileName]);
-      given_statAsync_returnsWhenGiven(
-        {
-          isFile: () => true
-        } as fs.Stats,
-        filePath
+      mockedPath.join.mockReturnValue(fullFilePath);
+      mockedFS.stat.mockImplementation((_, callback) => callback(null, fileStats));
+      // The mess on this next line is due to a known limitation of typescript and
+      // a 'problem' with fs.readFile - https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34889
+      // tslint:disable-next-line: ban-types
+      mockedFS.readFile.mockImplementation(((_: any, __: any, callback: Function) =>
+        callback(null, fileContent as any)) as any);
+
+      await subject.getTranslationFile("path");
+
+      expect(mockedFS.readFile).toBeCalledTimes(1);
+      expect(mockedFS.readFile).toHaveBeenCalledWith(fullFilePath, expect.anything(), expect.anything());
+    });
+
+    it("should read the file as utf-8 if the file exists", async () => {
+      const fullFilePath: string = "full/file/path";
+      const fileStats: FS.Stats = {
+        isFile: () => true
+      } as FS.Stats;
+      const fileContent: string = "This is the content of the file";
+
+      mockedPath.join.mockReturnValue(fullFilePath);
+      mockedFS.stat.mockImplementation((_, callback) => callback(null, fileStats));
+      // The mess on this next line is due to a known limitation of typescript and
+      // a 'problem' with fs.readFile - https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34889
+      // tslint:disable-next-line: ban-types
+      mockedFS.readFile.mockImplementation(((_: any, __: any, callback: Function) =>
+        callback(null, fileContent as any)) as any);
+
+      await subject.getTranslationFile("path");
+
+      expect(mockedFS.readFile).toBeCalledTimes(1);
+      expect(mockedFS.readFile).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          encoding: "utf8"
+        }),
+        expect.anything()
       );
-      given_readFileAsync_returnsWhenGivenPath(fileConent, filePath);
+    });
 
-      given_subject_isInstantiated();
+    it("should return the file content", async () => {
+      const fullFilePath: string = "full/file/path";
+      const fileStats: FS.Stats = {
+        isFile: () => true
+      } as FS.Stats;
+      const fileContent: string = "This is the content of the file";
 
-      const result: string | undefined = await subject.getTranslationFile(fileName);
+      mockedPath.join.mockReturnValue(fullFilePath);
+      mockedFS.stat.mockImplementation((_, callback) => callback(null, fileStats));
+      // The mess on this next line is due to a known limitation of typescript and
+      // a 'problem' with fs.readFile - https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34889
+      // tslint:disable-next-line: ban-types
+      mockedFS.readFile.mockImplementation(((_: any, __: any, callback: Function) =>
+        callback(null, fileContent as any)) as any);
 
-      assert.equal(result, fileConent);
+      const result: string | undefined = await subject.getTranslationFile("path");
+
+      expect(result).toBe(fileContent);
     });
   });
-
-  function given_subject_isInstantiated(): void {
-    subject = new TranslationUtils(
-      translationsFolder as string,
-      readdirAsync.object,
-      statAsync.object,
-      readFileAsync.object,
-      join.object
-    );
-  }
-
-  function given_translationsFolder_equals(equals: string): void {
-    translationsFolder = equals;
-  }
-
-  function given_join_returns_WhenGiven(returns: string, whenGiven: string[]): void {
-    join.setup(j => j(...whenGiven)).returns(() => returns);
-  }
-
-  function given_statAsync_returnsWhenGiven(returns: fs.Stats, whenGiven: string): void {
-    statAsync.setup(s => s(whenGiven)).returns(async () => returns);
-  }
-
-  function given_readFileAsync_returnsWhenGivenPath(returns: string, whenGivenPath: string): void {
-    readFileAsync.setup(r => r(whenGivenPath, It.isAny())).returns(async () => returns);
-  }
-
-  function given_readdirAsync_returnsWhenGivenPath(returns: fs.Dirent[] | string[], whenGivenPath: string): void {
-    readdirAsync.setup(r => r(whenGivenPath, It.isAny())).returns(async () => returns);
-  }
 });
