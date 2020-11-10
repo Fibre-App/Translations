@@ -10,7 +10,8 @@
     "types": ["node", "jest"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
   },
   "exclude": ["tests/**", "dist"]
 }
