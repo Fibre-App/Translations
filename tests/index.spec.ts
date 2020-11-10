@@ -5,9 +5,11 @@ import { join } from "path";
 import { readFile } from "fs";
 
 const globAsync: (pattern: string, options?: glob.IOptions) => Promise<string[]> = promisify(glob);
-export const readFileAsync: (path: string, options: { encoding: string; flag?: string }) => Promise<string> = promisify(
-  readFile
-);
+const readFileAsync: (file: string) => Promise<string> = (file: string) => {
+  return new Promise<string>((resolve, _) =>
+    readFile(file, { encoding: "utf8" }, (err, data) => (err ? fail() : resolve(data)))
+  );
+};
 
 describe("The translation files", () => {
   let jsonFiles: Map<string, string>;
@@ -43,12 +45,12 @@ describe("The translation files", () => {
     const fileNames: string[] = await globAsync("./translations/**/*.json", {});
 
     for (const fileName of fileNames) {
-      jsonFiles.set(fileName, await readFileAsync(fileName, { encoding: "utf-8" }));
+      jsonFiles.set(fileName, (await readFileAsync(fileName)).toString());
     }
   }
 
   async function given_schema_isLoadedIn(): Promise<void> {
     const path: string = join(__dirname, "../translation-schema.json");
-    schema = JSON.parse(await readFileAsync(path, { encoding: "utf-8" }));
+    schema = JSON.parse((await readFileAsync(path)).toString());
   }
 });

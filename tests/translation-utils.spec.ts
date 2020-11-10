@@ -136,7 +136,7 @@ describe("TranslationUtils", () => {
       await subject.getTranslationFile("path");
 
       expect(mockedFS.stat).toBeCalledTimes(1);
-      expect(mockedFS.stat).toHaveBeenCalledWith(fullFilePath, expect.anything(), expect.anything());
+      expect(mockedFS.stat).toHaveBeenCalledWith(fullFilePath, expect.anything());
     });
 
     it("should return undefined if the file does not exist", async () => {
@@ -208,7 +208,7 @@ describe("TranslationUtils", () => {
       expect(mockedFS.readFile).toHaveBeenCalledWith(
         expect.anything(),
         expect.objectContaining({
-          encoding: "UTF-8"
+          encoding: "utf8"
         }),
         expect.anything()
       );

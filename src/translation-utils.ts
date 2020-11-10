@@ -58,7 +58,7 @@ export class TranslationUtils {
 
   private readFileAsync(location: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      this.fs.readFile(location, { encoding: "UTF-8" }, (err, data) => {
+      this.fs.readFile(location, { encoding: "utf8" }, (err, data) => {
         if (!!err) {
           reject(err);
           return;
