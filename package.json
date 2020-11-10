@@ -1,8 +1,8 @@
 {
   "name": "@fibre/translations",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "The translation files for the Git source control client, Fibre",
-  "main": "dist/src/translation-utils.js",
+  "main": "dist/translation-utils.js",
   "scripts": {
     "build": "./node_modules/.bin/rimraf dist&&tsc",
     "test": "jest",
