@@ -34,7 +34,6 @@ describe("The translation files", () => {
       }
 
       const result: ValidatorResult = validate(instance, schema);
-
       expect(result.valid).toBe(true);
     }
   });
