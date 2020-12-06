@@ -16,23 +16,18 @@
     "type": "git",
     "url": "git+https://github.com/Fibre-SCM/Translations.git"
   },
-  "author": {
-    "name": "Toby Smith",
-    "email": "toby@fibre-app.com",
-    "url": "https://tobysmith.uk"
-  },
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/Fibre-SCM/Translations/issues"
   },
-  "prettier": "@tobysmith568/prettier-config",
+  "prettier": "@fibre/prettier-config",
   "homepage": "https://github.com/Fibre-SCM/Translations#readme",
   "files": [
     "translations",
     "dist"
   ],
   "devDependencies": {
-    "@tobysmith568/prettier-config": "^1.0.0",
+    "@fibre/prettier-config": "^1.0.1",
     "@types/glob": "^7.1.1",
     "@types/jest": "^26.0.15",
     "@types/jsonschema": "^1.1.1",
