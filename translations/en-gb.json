@@ -7,6 +7,9 @@
     "Repo-Sidebar-RenameLocalBranch": "Rename ${branch}",
     "Repo-Sidebar-DeleteLocalBranch": "Delete ${branch}",
     "Repo-Sidebar-Remotes": "Remotes",
+    "Repo-Sidebar-Remotes-Context-Fetch": "Fetch",
+    "Repo-Sidebar-Remotes-UnableToFetch-Title": "Unable to fetch",
+    "Repo-Sidebar-Remotes-UnableToFetch-Message": "Unable to fetch from a remote for the repository ${repository}",
     "Repo-Sidebar-Tags": "Tags",
     "Repo-Files-Files": "Files",
     "Repo-Files-FileCount": "${count} Files",
@@ -48,6 +51,7 @@
     "Settings-Header-Title": "Settings",
     "Settings-Sidebar-General": "General",
     "Settings-Sidebar-Scripts": "Scripts",
+    "Settings-Sidebar-Profiles": "Profiles",
     "Settings-Sidebar-About": "About",
 
     "SettingsGeneral-ThemeHeader": "Theme",
@@ -104,6 +108,9 @@
     "ScriptAPI-UnableToFindRepository-Title": "Repository Error",
     "ScriptAPI-UnableToFindRepository-Message": "Unable to create or find the repository: ${repositoryName}",
     "ScriptAPI-UnableToFindScript-Title": "Script Error",
-    "ScriptAPI-UnableToFindScript-Message": "Unable to find the script: ${label}"
+    "ScriptAPI-UnableToFindScript-Message": "Unable to find the script: ${label}",
+
+    "Github-GeneratePAT-UiBlockDialog-Title": "Waiting",
+    "Github-GeneratePAT-UiBlockDialog-Message": "Waiting for you to log into Github via your browser"
   }
 }
