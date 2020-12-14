@@ -1,6 +1,6 @@
 {
   "name": "@fibre/translations",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "The translation files for the Git source control client, Fibre",
   "main": "dist/translation-utils.js",
   "scripts": {
