@@ -51,7 +51,7 @@
     "Settings-Header-Title": "Settings",
     "Settings-Sidebar-General": "General",
     "Settings-Sidebar-Scripts": "Scripts",
-    "Settings-Sidebar-Profiles": "Profiles",
+    "Settings-Sidebar-Identities": "Identities",
     "Settings-Sidebar-About": "About",
 
     "SettingsGeneral-ThemeHeader": "Theme",
@@ -68,6 +68,12 @@
     "SettingsScripts-RepositoryBar-Title": "Repository Bar",
     "SettingsScripts-Scripts-Title": "Available Scripts",
     "SettingsScripts-Context-Remove": "Remove ${name}",
+
+    "SettingsIdentities-GitHub": "GitHub",
+    "SettingsIdentities-GitLab": "GitLab",
+    "SettingsIdentities-BitBucket": "BitBucket (Atlassian)",
+    "SettingsIdentities-Add": "Add",
+    "SettingsIdentities-Revoke": "Revoke",
 
     "SettingsCredits-Title": "Credits",
 
@@ -111,6 +117,10 @@
     "ScriptAPI-UnableToFindScript-Message": "Unable to find the script: ${label}",
 
     "Github-GeneratePAT-UiBlockDialog-Title": "Waiting",
-    "Github-GeneratePAT-UiBlockDialog-Message": "Waiting for you to log into Github via your browser"
+    "Github-GeneratePAT-UiBlockDialog-Message": "Waiting for you to log into Github via your browser",
+    "Gitlab-GeneratePAT-UiBlockDialog-Title": "Waiting",
+    "Gitlab-GeneratePAT-UiBlockDialog-Message": "Waiting for you to log into Gitlab via your browser",
+    "BitBucket-GeneratePAT-UiBlockDialog-Title": "Waiting",
+    "BitBucket-GeneratePAT-UiBlockDialog-Message": "Waiting for you to log into BitBucket via your browser"
   }
 }
