@@ -73,6 +73,7 @@
     "SettingsIdentities-GitLab": "GitLab",
     "SettingsIdentities-BitBucket": "BitBucket (Atlassian)",
     "SettingsIdentities-Add": "Add",
+    "SettingsIdentities-AddDeviceFlow": "Use Device Flow",
     "SettingsIdentities-Revoke": "Revoke",
 
     "SettingsCredits-Title": "Credits",
@@ -103,6 +104,15 @@
     "CloneNew-NotValidLocation": "The given local location already exists",
     "CloneNew-OK": "OK",
     "CloneNew-Cancel": "Cancel",
+
+    "GitHubDeviceFlow-Title": "GitHub Device Flow",
+    "GitHubDeviceFlow-LoadingCode": "Loading code",
+    "GitHubDeviceFlow-OpenGithub": "Open GitHub",
+    "GitHubDeviceFlow-Navigate": "Navigate to the GitHub website by either scanning this QR Code or by clicking the Open GitHub button.",
+    "GitHubDeviceFlow-Code": "Enter this code when prompted.",
+    "GitHubDeviceFlow-ClickDone": "Click Done once GitHub says you're all set!",
+    "GitHubDeviceFlow-Done": "Done",
+    "GitHubDeviceFlow-Cancel": "Cancel",
 
     "ScriptWarning-Title": "Beware of external scripts!",
     "ScriptWarning-Message1": "Only use scripts which either you wrote, or you have examined to the point where you understand their functionality fully.",
