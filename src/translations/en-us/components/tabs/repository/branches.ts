@@ -1,8 +1,5 @@
 import { Translations } from "../../../../../types/translations";
 
-const translations: Translations = {
-  title: "Local branchessss",
-  branchContextMenu: {}
+export const translations: Translations = {
+  title: "Local branchessssssssssss"
 };
-
-export default translations;

@@ -1,6 +1,6 @@
 import { Translations } from "../../../../../types/translations";
 
-const translations: Translations = {
+export const translations: Translations = {
   title: "Local branches",
   branchContextMenu: {
     checkout: {
@@ -9,5 +9,3 @@ const translations: Translations = {
     }
   }
 };
-
-export default translations;

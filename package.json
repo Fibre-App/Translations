@@ -4,6 +4,7 @@
   "description": "The translation files for the Git source control client, Fibre",
   "main": "dist/index.js",
   "scripts": {
+    "generate": "ts-node ./src/scripts/generate.ts",
     "build": "rimraf dist&&tsc",
     "test": "jest",
     "coverage": "jest --coverage",
