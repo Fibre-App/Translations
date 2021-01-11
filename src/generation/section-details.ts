@@ -4,6 +4,7 @@ export class SectionDetails {
   public interfaceName: string = "I";
 
   public text: string = "";
+  public interfaceText: string = "";
 
   public add(value: string): void {
     if (!value) {

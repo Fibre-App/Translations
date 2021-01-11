@@ -1,17 +1,13 @@
-// Generated
+// ********************************
+//
+// ********************************
 
-import { _componentsTabsRepositoryBranches as en_us_componentsTabsRepositoryBranches } from "./en-us";
+import { interpolate } from "../translation-utils";
 import { ILanguage } from "./language.interface";
-import { IComponentsTabsRepositoryBranches } from "./section.interface";
+import * as Sections from "./section.interface";
+import * as enus from "./en-us";
 
 // Sections
-
-export const _componentsTabsRepositoryBranches: IComponentsTabsRepositoryBranches = {
-  title: "Local branches",
-  branchContextMenu: {
-    checkout: en_us_componentsTabsRepositoryBranches.branchContextMenu.checkout
-  }
-};
 
 // Language
 
@@ -20,7 +16,7 @@ export const enca: ILanguage = {
     shortcode: "en-ca",
     name: "English (CA)"
   },
-  "components-tabs-repository-branches": _componentsTabsRepositoryBranches
+  "components-tabs-repository-branches": enus._componentsTabsRepositoryBranches
 };
 
 export default enca;

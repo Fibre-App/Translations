@@ -4,12 +4,14 @@
 
 import { interpolate } from "../translation-utils";
 import { ILanguage } from "./language.interface";
-import * as Sections from "./section.interface";
+import * as Sections from "./sections.interface";
+import * as engb from "./en-gb";
 
 // Sections
 
 export const _componentsTabsRepositoryBranches: Sections.IComponentsTabsRepositoryBranches = {
-title: "Local branchessssssssssss",
+  title: "Local branchessssssssssss",
+  branchContextMenu: engb._componentsTabsRepositoryBranches.branchContextMenu,
 };
 
 // Language
@@ -19,6 +21,7 @@ export const enus: ILanguage = {
     shortcode: "en-us",
     name: "English (US)"
   },
+  "components-tabs-repository-branches": _componentsTabsRepositoryBranches,
 };
 
 export default enus;

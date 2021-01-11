@@ -1,6 +1,6 @@
 // Generated
 
-import { _componentsTabsRepositoryBranches as en_gb_componentsTabsRepositoryBranches } from "./en-gb";
+import * as engb from "./en-gb";
 import { ILanguage } from "./language.interface";
 import { IComponentsTabsRepositoryBranches } from "./section.interface";
 
@@ -9,7 +9,7 @@ import { IComponentsTabsRepositoryBranches } from "./section.interface";
 export const _componentsTabsRepositoryBranches: IComponentsTabsRepositoryBranches = {
   title: "Local branches",
   branchContextMenu: {
-    checkout: en_gb_componentsTabsRepositoryBranches.branchContextMenu.checkout
+    checkout: engb._componentsTabsRepositoryBranches.branchContextMenu.checkout
   }
 };
 

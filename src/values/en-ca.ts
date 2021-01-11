@@ -4,7 +4,8 @@
 
 import { interpolate } from "../translation-utils";
 import { ILanguage } from "./language.interface";
-import * as Sections from "./section.interface";
+import * as Sections from "./sections.interface";
+import * as enus from "./en-us";
 
 // Sections
 
@@ -15,6 +16,7 @@ export const enca: ILanguage = {
     shortcode: "en-ca",
     name: "English (CA)"
   },
+  "components-tabs-repository-branches": enus._componentsTabsRepositoryBranches,
 };
 
 export default enca;
