@@ -6,6 +6,14 @@ export const translations: Translations = {
     checkout: {
       value: "Checkout ${branch}",
       args: ["branch"]
+    },
+    rename: {
+      value: "Rename ${branch}",
+      args: ["branch"]
+    },
+    delete: {
+      value: "Delete ${branch}",
+      args: ["branch"]
     }
   }
 };
