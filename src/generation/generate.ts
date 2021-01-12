@@ -18,7 +18,10 @@ const srcDir: string = Path.join(projDir, "./src");
 const translationsDir: string = Path.join(srcDir, "./translations");
 const valuesDir: string = Path.join(srcDir, "./values");
 
-let baseLanguageFullTranslations: Translation | Translations;
+const baseLanguageFullTranslations: Map<string, Translation | Translations> = new Map<
+  string,
+  Translation | Translations
+>();
 
 async function run(): Promise<void> {
   logSection("Cleaning values folder");
@@ -122,7 +125,7 @@ async function loadLanguageFile(
   }
 
   if (!parent) {
-    baseLanguageFullTranslations = translations;
+    baseLanguageFullTranslations.set(sectionDetails.key, translations);
   }
 
   sectionDetails = loadObject(
@@ -130,7 +133,7 @@ async function loadLanguageFile(
     translations,
     "",
     0,
-    !parent ? undefined : baseLanguageFullTranslations,
+    !parent ? undefined : baseLanguageFullTranslations.get(sectionDetails.key),
     parent
   );
 
@@ -149,7 +152,7 @@ function loadObject(
 
   if (!value) {
     const parentShortcodeNoDash: string = parent?.split("-").join("") ?? "";
-    sectionDetails.text += `${indent}${key}: ${parentShortcodeNoDash}.${sectionDetails.varName}.${key},\n`;
+    sectionDetails.text += `\n${indent}${key}: ${parentShortcodeNoDash}["${sectionDetails.key}"].${key},`;
     return sectionDetails;
   }
 
@@ -157,7 +160,7 @@ function loadObject(
     if (key.length === 0) {
       reportError("Found a top-level string value");
     }
-    sectionDetails.text += `${indent}${key}: "${value}",\n`;
+    sectionDetails.text += `\n${indent}${key}: "${value}",`;
     sectionDetails.interfaceText += `${indent}${key}: StringTranslation;\n`;
     return sectionDetails;
   }
@@ -168,13 +171,13 @@ function loadObject(
     const parameters: string = value.args?.map(v => `${v}: string`).join(", ") ?? "";
     const args: string = value.args?.join(", ") ?? "";
 
-    sectionDetails.text += `${indent}${key}: (${parameters}) => interpolate("${value.value}", { ${args} }),\n`;
+    sectionDetails.text += `\n${indent}${key}: (${parameters}) => interpolate("${value.value}", { ${args} }),`;
     sectionDetails.interfaceText += `${indent}${key}: (${parameters}) => string;\n`;
     return sectionDetails;
   }
 
   if (!!key && key.length > 0) {
-    sectionDetails.text += `${indent}${key}: {\n`;
+    sectionDetails.text += `\n${indent}${key}: {`;
     sectionDetails.interfaceText += `${indent}${key}: {\n`;
   }
 
@@ -195,7 +198,7 @@ function loadObject(
   }
 
   if (!!key && key.length > 0) {
-    sectionDetails.text += `${indent}},\n`;
+    sectionDetails.text += `\n${indent}},`;
     sectionDetails.interfaceText += `${indent}};\n`;
   }
 
@@ -205,6 +208,12 @@ function loadObject(
 function validateArgTranslation(translation: ArgTranslation): void {
   const valuesToInterpolate: string[] =
     translation.value.match(interpolationRegex)?.map(m => m.substr(2, m.length - 3)) ?? [];
+
+  const duplicates: string[] = valuesToInterpolate.filter(filterDuplicates);
+
+  if (duplicates.length > 0) {
+    reportError(`Duplicate translation args found: ${duplicates.map(v => `"${v}"`).join(", ")}`);
+  }
 
   if (valuesToInterpolate.length > 0 && !translation.args) {
     reportError(
@@ -231,6 +240,10 @@ function validateArgTranslation(translation: ArgTranslation): void {
       );
     }
   }
+}
+
+function filterDuplicates<T>(value: T, index: number, array: T[]): boolean {
+  return array.indexOf(value) !== index;
 }
 
 (async () => await run())();
