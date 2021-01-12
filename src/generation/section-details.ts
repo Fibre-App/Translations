@@ -1,5 +1,10 @@
 export class SectionDetails {
-  public key: string = "";
+  private _key: string = "";
+
+  public get key(): string {
+    return this._key;
+  }
+
   public varName: string = "_";
   public interfaceName: string = "I";
 
@@ -27,11 +32,11 @@ export class SectionDetails {
   }
 
   private addToKey(value: string): void {
-    if (this.key.length > 0) {
-      this.key += "-";
+    if (this._key.length > 0) {
+      this._key += "-";
     }
 
-    this.key += value;
+    this._key += value;
   }
 
   private addToVarName(value: string): void {

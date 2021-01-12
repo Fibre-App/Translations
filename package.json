@@ -4,8 +4,8 @@
   "description": "The translation files for the Git source control client, Fibre",
   "main": "dist/index.js",
   "scripts": {
+    "build": "npm run generate&&rimraf dist&&tsc",
     "generate": "ts-node ./src/generation/generate.ts",
-    "build": "rimraf dist&&tsc",
     "test": "jest",
     "coverage": "jest --coverage",
     "test:ci": "jest --ci --runInBand --coverage",
@@ -24,7 +24,8 @@
   "prettier": "@fibre/prettier-config",
   "homepage": "https://github.com/Fibre-SCM/Translations#readme",
   "files": [
-    "dist"
+    "dist/*.*",
+    "dist/values/*.*"
   ],
   "devDependencies": {
     "@fibre/prettier-config": "^1.0.1",

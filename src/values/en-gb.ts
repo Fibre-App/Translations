@@ -13,6 +13,7 @@ export const _componentsTabsRepositoryBranches: Sections.IComponentsTabsReposito
   branchContextMenu: {
     checkout: (branch: string) => interpolate("Checkout ${branch}", { branch }),
   },
+
 };
 
 // Language

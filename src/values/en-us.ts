@@ -12,6 +12,7 @@ import * as engb from "./en-gb";
 export const _componentsTabsRepositoryBranches: Sections.IComponentsTabsRepositoryBranches = {
   title: "Local branchessssssssssss",
   branchContextMenu: engb._componentsTabsRepositoryBranches.branchContextMenu,
+
 };
 
 // Language
