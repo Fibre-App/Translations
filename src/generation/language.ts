@@ -182,7 +182,8 @@ export class Language {
       `  },${baseLanguageFullSections.map(
         (s, i) =>
           `\n  "${s.key}": ${
-            this.sectionDetails[i]?.varName ?? `${this.parentShortcodeNoDash}["${s.key}"]`
+            this.sectionDetails.find(sd => sd.key === s.key)?.varName ??
+            `${this.parentShortcodeNoDash}["${s.key}"]`
           }`
       )}`,
       `};`,
