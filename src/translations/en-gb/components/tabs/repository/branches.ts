@@ -15,5 +15,15 @@ export const translations: Translations = {
       value: "Delete ${branch}",
       args: ["branch"]
     }
+  },
+  renameDialog: {
+    title: {
+      value: "Rename ${branch}",
+      args: ["branch"]
+    },
+    message: {
+      value: "What would you like ${branch} to be called?",
+      args: ["branch"]
+    }
   }
 };

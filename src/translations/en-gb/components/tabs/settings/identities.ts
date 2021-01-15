@@ -36,5 +36,12 @@ export const translations: Translations = {
   },
   bitbucket: {
     title: "BitBucket (Atlassian)"
+  },
+  uiblockDialog: {
+    title: "Waiting",
+    message: {
+      value: "Waiting for you to log into ${service} via your browser",
+      args: ["service"]
+    }
   }
 };
