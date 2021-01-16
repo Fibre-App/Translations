@@ -25,5 +25,26 @@ export const translations: Translations = {
       value: "What would you like ${branch} to be called?",
       args: ["branch"]
     }
+  },
+  unableToCheckOutToast: {
+    title: "Error",
+    message: {
+      value: "Unable to checkout the branch: ${branch}",
+      args: ["branch"]
+    }
+  },
+  unableToRenameToast: {
+    title: "Error",
+    message: {
+      value: "Unable to rename the branch: ${branch}",
+      args: ["branch"]
+    }
+  },
+  unableToDeleteToast: {
+    title: "Error",
+    message: {
+      value: "Unable to delete the branch: ${branch}",
+      args: ["branch"]
+    }
   }
 };

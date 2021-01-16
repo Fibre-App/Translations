@@ -22,13 +22,6 @@ export const translations: Translations = {
     updated: {
       title: "Updated!",
       message: "Updated a GitHub account"
-    },
-    revoked: {
-      title: "Revoked!",
-      message: {
-        value: "Revoked access to the GitHub account, ${username}",
-        args: ["username"]
-      }
     }
   },
   gitlab: {
@@ -42,6 +35,13 @@ export const translations: Translations = {
     message: {
       value: "Waiting for you to log into ${service} via your browser",
       args: ["service"]
+    }
+  },
+  revokedToast: {
+    title: "Revoked!",
+    message: {
+      value: "Revoked access to the ${platform} account, ${username}",
+      args: ["platform", "username"]
     }
   }
 };
