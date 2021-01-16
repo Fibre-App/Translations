@@ -5,24 +5,9 @@ export const translations: Translations = {
   add: "Add",
   useDeviceFlow: "Use Device Flow",
   revoke: "Revoke",
+
   github: {
-    title: "GitHub",
-    cannotFind: {
-      title: "Not Found!",
-      message: "Cannot find the added GitHub account"
-    },
-    cannotInsert: {
-      title: "Not Save!",
-      message: "Cannot save the added GitHub account"
-    },
-    inserted: {
-      title: "Added!",
-      message: "Added the new GitHub account"
-    },
-    updated: {
-      title: "Updated!",
-      message: "Updated a GitHub account"
-    }
+    title: "GitHub"
   },
   gitlab: {
     title: "GitLab"
@@ -35,6 +20,36 @@ export const translations: Translations = {
     message: {
       value: "Waiting for you to log into ${service} via your browser",
       args: ["service"]
+    }
+  },
+  addedToast: {
+    cannotFind: {
+      title: "Not Found!",
+      message: {
+        value: "Could not find the added ${service} account",
+        args: ["service"]
+      }
+    },
+    cannotInsert: {
+      title: "Not Save!",
+      message: {
+        value: "Could not save the added ${service} account",
+        args: ["service"]
+      }
+    },
+    inserted: {
+      title: "Added!",
+      message: {
+        value: "Added the new ${service} account",
+        args: ["service"]
+      }
+    },
+    updated: {
+      title: "Updated!",
+      message: {
+        value: "Updated a ${service} account",
+        args: ["service"]
+      }
     }
   },
   revokedToast: {
