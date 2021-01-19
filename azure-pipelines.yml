@@ -37,24 +37,3 @@ jobs:
           script: |
             npm run build
         continueOnError: false
-
-      - task: CmdLine@2
-        displayName: "Test Project"
-        inputs:
-          script: |
-            npm run test:ci
-        continueOnError: false
-
-      - task: PublishTestResults@2
-        displayName: "Publish Test Results"
-        inputs:
-          testResultsFormat: "JUnit"
-          testResultsFiles: "$(System.DefaultWorkingDirectory)/**/coverage/junit-reported-tests.xml"
-        continueOnError: false
-
-      - task: PublishCodeCoverageResults@1
-        displayName: "Publish Coverage Results"
-        inputs:
-          codeCoverageTool: "Cobertura"
-          summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage/cobertura-coverage.xml"
-        continueOnError: false
