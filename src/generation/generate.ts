@@ -10,7 +10,7 @@ import {
 } from "../types/translations";
 import { childFiles, childFolders, createFolder, delFolder, folderExists } from "./file-utils";
 import { Language } from "./language";
-import { logDoneSection, reportError, logInfo, logSection } from "./log";
+import { logDoneSection, failWithError, logInfo, logSection } from "./log";
 import { SectionDetails } from "./section-details";
 
 const projDir: string = Path.join(__dirname, "../../");
@@ -39,14 +39,14 @@ async function run(): Promise<void> {
     );
 
     if (foundLanguageNames.has(language.name)) {
-      reportError(
+      failWithError(
         `Language ${shortcode} needs a distinct name, but ${language.name} has already been used.`
       );
     }
     foundLanguageNames.add(language.name);
 
     if (!language.parentShortcode && shortcode !== "en-gb") {
-      reportError(`Language ${shortcode}, ${language.name} needs to extend another language`);
+      failWithError(`Language ${shortcode}, ${language.name} needs to extend another language`);
     }
 
     await loadLanguage(language);
@@ -121,7 +121,7 @@ async function loadLanguageFile(
   const translations: Translations = loadedModule.translations;
 
   if (!translations) {
-    reportError(`No translations found in the file ${path}`);
+    failWithError(`No translations found in the file ${path}`);
   }
 
   if (!parent) {
@@ -160,7 +160,7 @@ function loadObject(
 
   if (isStringTranslation(value)) {
     if (newestKey.length === 0) {
-      reportError("Found a top-level string value");
+      failWithError("Found a top-level string value");
     }
     sectionDetails.text += `\n${indent}${newestKey}: "${value}",`;
     sectionDetails.interfaceText += `${indent}${newestKey}: StringTranslation;\n`;
@@ -187,7 +187,7 @@ function loadObject(
   const invalidKeys: string[] = Object.keys(value).filter(k => !translationKeys.includes(k));
 
   if (invalidKeys.length > 0) {
-    reportError("Found invalid key(s): " + invalidKeys.join(", "));
+    failWithError("Found invalid key(s): " + invalidKeys.join(", "));
   }
 
   for (const translationKey of translationKeys) {
@@ -220,11 +220,11 @@ function validateArgTranslation(translation: ArgTranslation): void {
   const duplicates: string[] = valuesToInterpolate.filter(filterDuplicates);
 
   if (duplicates.length > 0) {
-    reportError(`Duplicate translation args found: ${duplicates.map(v => `"${v}"`).join(", ")}`);
+    failWithError(`Duplicate translation args found: ${duplicates.map(v => `"${v}"`).join(", ")}`);
   }
 
   if (valuesToInterpolate.length > 0 && !translation.args) {
-    reportError(
+    failWithError(
       `No translation args were given for "${
         translation.value
       }" but interpolation variables were found: ${valuesToInterpolate
@@ -237,13 +237,13 @@ function validateArgTranslation(translation: ArgTranslation): void {
 
   for (const value of valuesToInterpolate) {
     if (value === "") {
-      reportError(
+      failWithError(
         `The translation "${translation.value}" contains an empty interpolation variable ("\${}")`
       );
     }
 
     if (!args.includes(value)) {
-      reportError(
+      failWithError(
         `The translation "${translation.value}" requires a value for ${value} but it was not declared as an argument`
       );
     }

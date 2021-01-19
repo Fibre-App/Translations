@@ -1,5 +1,5 @@
 import { Shortcode } from "../translations/languages";
-import { logDoneSection, logSection, reportError } from "./log";
+import { logDoneSection, logSection, failWithError } from "./log";
 import * as Path from "path";
 import { writeFile } from "./file-utils";
 import { SectionDetails } from "./section-details";
@@ -52,14 +52,14 @@ export class Language {
     parentShortcode: Shortcode | undefined
   ) {
     this.shortcode = shortcode;
-    this.name = name ?? reportError(`Language ${shortcode} needs a name`);
+    this.name = name ?? failWithError(`Language ${shortcode} needs a name`);
 
     if (!parentShortcode && !this.isBaseLanguage) {
-      reportError(
+      failWithError(
         `Language ${shortcode}, ${name} needs to extend another language. Only ${baseLanguageShortcode} does not extend another language`
       );
     } else if (!!parentShortcode && this.isBaseLanguage) {
-      reportError(`Language ${shortcode}, ${name} cannot extend another language`);
+      failWithError(`Language ${shortcode}, ${name} cannot extend another language`);
     }
 
     this.parentShortcode = parentShortcode;

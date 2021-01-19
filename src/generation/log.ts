@@ -22,7 +22,7 @@ export function logInfo(message: string): void {
   console.log(`${indentation()}${greyForeground}${message}${reset}`);
 }
 
-export function reportError(errorMessage: string): never {
+export function failWithError(errorMessage: string): never {
   console.log(`${indentation()}${redForeground}${bold}${errorMessage}${reset}`);
   throw new Error(errorMessage);
 }
