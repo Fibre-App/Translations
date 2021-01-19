@@ -184,6 +184,12 @@ function loadObject(
   }
 
   const translationKeys: string[] = Object.keys(engbTranslations ?? value);
+  const invalidKeys: string[] = Object.keys(value).filter(k => !translationKeys.includes(k));
+
+  if (invalidKeys.length > 0) {
+    reportError("Found invalid key(s): " + invalidKeys.join(", "));
+  }
+
   for (const translationKey of translationKeys) {
     const childEngbTranslations: Translations = !!engbTranslations
       ? ((engbTranslations as any)[translationKey] as Translations)
