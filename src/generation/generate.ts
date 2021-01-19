@@ -131,7 +131,7 @@ async function loadLanguageFile(
   sectionDetails = loadObject(
     sectionDetails,
     translations,
-    "",
+    [],
     0,
     !parent ? undefined : baseLanguageFullTranslations.get(sectionDetails.key),
     parent
@@ -143,25 +143,27 @@ async function loadLanguageFile(
 function loadObject(
   sectionDetails: SectionDetails,
   value: Translation | Translations,
-  key: string,
+  keys: string[],
   indentLevel: number,
   engbTranslations: Translation | Translations | undefined,
   parent: Shortcode | undefined
 ): SectionDetails {
   const indent: string = "  ".repeat(indentLevel);
+  const newestKey: string = keys[keys?.length - 1] ?? "";
 
   if (!value) {
     const parentShortcodeNoDash: string = parent?.split("-").join("") ?? "";
-    sectionDetails.text += `\n${indent}${key}: ${parentShortcodeNoDash}["${sectionDetails.key}"].${key},`;
+    const keyString: string = keys.join(".");
+    sectionDetails.text += `\n${indent}${newestKey}: ${parentShortcodeNoDash}["${sectionDetails.key}"].${keyString},`;
     return sectionDetails;
   }
 
   if (isStringTranslation(value)) {
-    if (key.length === 0) {
+    if (newestKey.length === 0) {
       reportError("Found a top-level string value");
     }
-    sectionDetails.text += `\n${indent}${key}: "${value}",`;
-    sectionDetails.interfaceText += `${indent}${key}: StringTranslation;\n`;
+    sectionDetails.text += `\n${indent}${newestKey}: "${value}",`;
+    sectionDetails.interfaceText += `${indent}${newestKey}: StringTranslation;\n`;
     return sectionDetails;
   }
 
@@ -171,33 +173,33 @@ function loadObject(
     const parameters: string = value.args?.map(v => `${v}: string`).join(", ") ?? "";
     const args: string = value.args?.join(", ") ?? "";
 
-    sectionDetails.text += `\n${indent}${key}: (${parameters}) => interpolate("${value.value}", { ${args} }),`;
-    sectionDetails.interfaceText += `${indent}${key}: (${parameters}) => string;\n`;
+    sectionDetails.text += `\n${indent}${newestKey}: (${parameters}) => interpolate("${value.value}", { ${args} }),`;
+    sectionDetails.interfaceText += `${indent}${newestKey}: (${parameters}) => string;\n`;
     return sectionDetails;
   }
 
-  if (!!key && key.length > 0) {
-    sectionDetails.text += `\n${indent}${key}: {`;
-    sectionDetails.interfaceText += `${indent}${key}: {\n`;
+  if (!!newestKey && newestKey.length > 0) {
+    sectionDetails.text += `\n${indent}${newestKey}: {`;
+    sectionDetails.interfaceText += `${indent}${newestKey}: {\n`;
   }
 
-  const keys: string[] = Object.keys(engbTranslations ?? value);
-  for (const childKey of keys) {
+  const translationKeys: string[] = Object.keys(engbTranslations ?? value);
+  for (const translationKey of translationKeys) {
     const childEngbTranslations: Translations = !!engbTranslations
-      ? ((engbTranslations as any)[childKey] as Translations)
-      : ((value as any)[childKey] as Translations);
+      ? ((engbTranslations as any)[translationKey] as Translations)
+      : ((value as any)[translationKey] as Translations);
 
     sectionDetails = loadObject(
       sectionDetails,
-      (value as any)[childKey] as Translations,
-      childKey,
+      (value as any)[translationKey] as Translations,
+      [...keys, translationKey],
       indentLevel + 1,
       childEngbTranslations,
       parent
     );
   }
 
-  if (!!key && key.length > 0) {
+  if (!!keys && keys.length > 0) {
     sectionDetails.text += `\n${indent}},`;
     sectionDetails.interfaceText += `${indent}};\n`;
   }
