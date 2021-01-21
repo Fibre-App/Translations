@@ -134,7 +134,11 @@ export class Language {
         `Writing Section and Language files as the current shortcode is ${baseLanguageShortcode}`
       );
 
-      this.addToLanguageInterfaceFile(["}"]);
+      this.addToLanguageInterfaceFile([
+        "}",
+        "",
+        'export type TranslationKey = keyof Omit<ILanguage, "metadata">;'
+      ]);
 
       promises.push(writeFile(sectionInterfaceFilePath, this.sectionInterfaceFile));
       promises.push(writeFile(languageInterfaceFilePath, this.languageInterfaceFile));
