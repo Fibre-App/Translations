@@ -14,6 +14,18 @@ export const translations: Translations = {
     delete: {
       value: "Delete ${branch}",
       args: ["branch"]
+    },
+    focus: {
+      value: "Focus ${branch}",
+      args: ["branch"]
+    },
+    addToFocus: {
+      value: "Add ${branch} to focus",
+      args: ["branch"]
+    },
+    unfocus: {
+      value: "Remove ${branch} from focus",
+      args: ["branch"]
     }
   },
   renameDialog: {
