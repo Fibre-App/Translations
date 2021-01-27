@@ -37,24 +37,75 @@ jobs:
           script: |
             npm run build
         continueOnError: false
+    
+      # There are currently no unit tests in this project
+      # - task: CmdLine@2
+      #   displayName: "Test Project"
+      #   inputs:
+      #     script: |
+      #       npm run test:ci
+      #   continueOnError: false
+
+      # - task: PublishTestResults@2
+      #   displayName: "Publish Test Results"
+      #   inputs:
+      #     testResultsFormat: "JUnit"
+      #     testResultsFiles: "$(System.DefaultWorkingDirectory)/**/coverage/junit-reported-tests.xml"
+      #   continueOnError: false
+
+      # - task: PublishCodeCoverageResults@1
+      #   displayName: "Publish Coverage Results"
+      #   inputs:
+      #     codeCoverageTool: "Cobertura"
+      #     summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage/cobertura-coverage.xml"
+      #   continueOnError: false
+  
+  - job: CreateNPMPackage
+    displayName: Create NPM Package
+    dependsOn: BuildAndUnitTests
+    condition: succeeded()
+
+    pool:
+      vmImage: "ubuntu-latest"
+
+    steps:
+      - task: UseNode@1
+        displayName: "Install Node.js"
+        inputs:
+          version: "14.3.0"
+        continueOnError: false
+
+      - task: Npm@1
+        displayName: "NPM Install Project"
+        inputs:
+          command: "ci"
+        continueOnError: false
 
       - task: CmdLine@2
-        displayName: "Test Project"
+        displayName: "Build Project"
         inputs:
           script: |
-            npm run test:ci
+            npm run build
         continueOnError: false
 
-      - task: PublishTestResults@2
-        displayName: "Publish Test Results"
+      - task: Npm@1
+        displayName: "NPM Pack"
         inputs:
-          testResultsFormat: "JUnit"
-          testResultsFiles: "$(System.DefaultWorkingDirectory)/**/coverage/junit-reported-tests.xml"
+          command: "custom"
+          customCommand: "pack"
         continueOnError: false
 
-      - task: PublishCodeCoverageResults@1
-        displayName: "Publish Coverage Results"
+      - task: Bash@3
+        displayName: "Rename the package"
         inputs:
-          codeCoverageTool: "Cobertura"
-          summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage/cobertura-coverage.xml"
+          targetType: 'inline'
+          script: 'for file in *.tgz; do mv "$file" "fibre-translations.tgz"; done'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+      - task: PublishPipelineArtifact@1
+        displayName: "Publish Packaged Tar"
+        inputs:
+          targetPath: "$(System.DefaultWorkingDirectory)/fibre-translations.tgz"
+          artifact: "Fibre Translations"
+          publishLocation: "pipeline"
         continueOnError: false

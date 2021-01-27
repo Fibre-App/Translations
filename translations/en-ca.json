@@ -1,7 +1,0 @@
-{
-  "name": "English (CA)",
-  "extends": ["en-us"],
-  "values": {
-    "Repo-Sidebar-LocalBranches": "Local Branches, ay"
-  }
-}

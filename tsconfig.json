@@ -13,5 +13,7 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
   },
+  "include": ["src"],
+  // "include": ["src/values", "src/index.ts", "src/translation-utils.ts"],
   "exclude": ["tests/**", "dist"]
 }
