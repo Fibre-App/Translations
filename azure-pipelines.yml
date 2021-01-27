@@ -95,18 +95,17 @@ jobs:
           customCommand: "pack"
         continueOnError: false
 
-      - task: CopyFiles@2
-        displayName: "Copy Packaged Tar"
+      - task: Bash@3
+        displayName: "Rename the package"
         inputs:
-          SourceFolder: "$(System.DefaultWorkingDirectory)"
-          Contents: "fibre-translations*.tgz"
-          TargetFolder: "$(System.DefaultWorkingDirectory)/package-artifact"
-        continueOnError: false
+          targetType: 'inline'
+          script: 'for file in *.tgz; do mv "$file" "fibre-translations.tgz"; done'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
 
       - task: PublishPipelineArtifact@1
         displayName: "Publish Packaged Tar"
         inputs:
-          targetPath: "$(System.DefaultWorkingDirectory)/package-artifact"
+          targetPath: "$(System.DefaultWorkingDirectory)/fibre-translations.tgz"
           artifact: "Fibre Translations"
           publishLocation: "pipeline"
         continueOnError: false
