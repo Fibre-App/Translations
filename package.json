@@ -1,6 +1,6 @@
 {
   "name": "@fibre/translations",
-  "version": "4.0.0",
+  "version": "4.0.5",
   "description": "The translation files for the Git source control client, Fibre",
   "main": "dist/index.js",
   "scripts": {
@@ -25,7 +25,9 @@
   "homepage": "https://github.com/Fibre-SCM/Translations#readme",
   "files": [
     "dist/*.*",
-    "dist/values/*.*"
+    "dist/values/*.*",
+    "dist/types/**",
+    "dist/translations/languages.*"
   ],
   "devDependencies": {
     "@fibre/prettier-config": "^1.0.1",
