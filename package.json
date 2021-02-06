@@ -1,6 +1,6 @@
 {
   "name": "@fibre/translations",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "The translation files for the Git source control client, Fibre",
   "main": "dist/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "coverage": "jest --coverage",
     "test:ci": "jest --ci --runInBand --coverage",
     "prepack": "npm run build",
-    "release": "npm publish --scope=@fibre --access public",
+    "publish": "npm publish --scope=@fibre --access public",
     "nvm": "nvm use 14.14.0"
   },
   "repository": {
