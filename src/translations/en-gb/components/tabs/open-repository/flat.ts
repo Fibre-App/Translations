@@ -2,21 +2,16 @@ import { Translations } from "../../../../../types/translations";
 
 export const translations: Translations = {
   displayStrategies: {
-    script: {
-      title: "Script Repositories"
-    },
     recent: {
       title: "Recent Repositories"
     },
     favourites: {
-      title: "Favourites"
+      title: "Favourite Repositories"
     }
   },
   row: {
     markAsFavourite: "Mark as favourite",
-    unmarkAsFavourite: "Unark as favourite",
-    markAsScript: "Mark as script",
-    unmarkAsScript: "Unark as script"
+    unmarkAsFavourite: "Unark as favourite"
   },
   table: {
     repositoryCount: {

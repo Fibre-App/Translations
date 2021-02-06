@@ -5,7 +5,6 @@ export const translations: Translations = {
   openNew: "Open new",
   recents: "Recents",
   favourites: "Favourites",
-  scripts: "Scripts",
   groups: "Groups",
   addGroup: "Add group",
   settings: "Settings"
